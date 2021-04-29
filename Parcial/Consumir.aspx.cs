@@ -37,7 +37,11 @@ namespace Parcial
             //1.Encontrar las edades que estén estado LEVE
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Leve"
-                             select data.EDAD);
+                             select data);
+            //(from data in listaCovid
+            //                 where data.ESTADO == "Leve"
+            //                 select data);
+            
             Console.WriteLine(resultado);
         }
 
@@ -127,7 +131,7 @@ namespace Parcial
 
         private void getDataFromApi()
         {
-            string url = "https://datosabiertos.bogota.gov.co/api/3/action/datastore_search?resource_id=b64ba3c4-9e41-41b8-b3fd-2da21d627558&limit=500";
+            string url = "https://datosabiertos.bogota.gov.co/api/3/action/datastore_search?resource_id=b64ba3c4-9e41-41b8-b3fd-2da21d627558&limit=10000";
             
             dynamic respuesta = api.Get(url);
             foreach (var res in respuesta.result.records)
@@ -157,5 +161,15 @@ namespace Parcial
 
         }
 
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            //getDataFromApi();
+        }
+
+        protected void btnBorrar_Click(object sender, EventArgs e)
+        {
+            gridCovid.DataSource = null;
+            gridCovid.DataBind();
+        }
     }
 }

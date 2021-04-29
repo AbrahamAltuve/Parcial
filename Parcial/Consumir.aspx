@@ -10,6 +10,8 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:Button ID="btnCargarDatos" runat="server" OnClick="Button1_Click" Text="Cargar Datos" />
+            <asp:Button ID="btnBorrar" runat="server" OnClick="btnBorrar_Click" Text="Limpiar " />
             <asp:GridView ID="gridCovid" runat="server" AutoGenerateColumns="False">
                 <Columns>
                     <asp:BoundField DataField="_id" HeaderText="_id" />
