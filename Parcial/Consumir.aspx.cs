@@ -149,7 +149,10 @@ namespace Parcial
                 dataCovid.ESTADO = res.ESTADO;
                 
                 listaCovid.Add(dataCovid);
+
             }
+            gridCovid.DataSource = listaCovid; 
+            gridCovid.DataBind();
             Console.WriteLine(listaCovid);
 
         }
