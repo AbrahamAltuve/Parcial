@@ -10,8 +10,22 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Button ID="btnCargarDatos" runat="server" OnClick="Button1_Click" Text="Cargar Datos" />
+            <asp:Button ID="btnCargarDatos" runat="server" OnClick="btnCargarDAtos" Text="Cargar Datos" />
             <asp:Button ID="btnBorrar" runat="server" OnClick="btnBorrar_Click" Text="Limpiar " />
+            <br />
+            <asp:Button ID="Button1" runat="server"  Text="EdadesLeve" OnClick="Button1_Click1" />
+            <asp:Button ID="btnEdadMaxFallecido" runat="server"  Text="MaxEdadFallecido" OnClick="btnEdadMaxFallecido_Click" />
+            <asp:Button ID="btnAsintomaticos" runat="server"  Text="Asintomaticos" OnClick="btnAsintomaticos_Click"  />
+            <asp:Button ID="Button4" runat="server"  Text="Limpiar " />
+            <asp:Button ID="Button5" runat="server"  Text="Limpiar " />
+            <asp:Button ID="Button6" runat="server"  Text="Limpiar " />
+            <asp:Button ID="Button7" runat="server"  Text="Limpiar " />
+            <asp:Button ID="Button8" runat="server"  Text="Limpiar " />
+
+            <br />
+            <asp:Label ID="labelTitulo" runat="server"></asp:Label>
+            <asp:Label ID="labelResultado" runat="server"></asp:Label>
+
             <asp:GridView ID="gridCovid" runat="server" AutoGenerateColumns="False">
                 <Columns>
                     <asp:BoundField DataField="_id" HeaderText="_id" />

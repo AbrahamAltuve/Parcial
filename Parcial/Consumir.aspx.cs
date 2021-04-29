@@ -19,30 +19,16 @@ namespace Parcial
         protected void Page_Load(object sender, EventArgs e)
         {
             getDataFromApi();
-            Console.WriteLine(listaCovid);
-            edadesLeve();
-            edadMaximaFallecido();
-            localidadMasFallecidos();
-            localidadMenosFallecidos();
-            contagioXLocalidad();
-            fechaMasMuertes();
-            fechaRecuperados();
-            ubicacionRecuperados();
-            ubicacionFallecidos();
-            asintomaticosXMes();
         }
 
         private void edadesLeve()
         {
             //1.Encontrar las edades que estén estado LEVE
             var resultado = (from data in listaCovid
-                             where data.ESTADO == "Leve"
+                             where data.ESTADO == "Recuperado"
                              select data);
-            //(from data in listaCovid
-            //                 where data.ESTADO == "Leve"
-            //                 select data);
-            
             Console.WriteLine(resultado);
+            pintarGrilla(resultado);
         }
 
         private void edadMaximaFallecido()
@@ -52,6 +38,7 @@ namespace Parcial
                              where data.ESTADO == "Fallecido"
                              select data.EDAD).Max(dataFallecido => dataFallecido);
             Console.WriteLine(resultado);
+            pintarLabel("Maxima edad fallecido", resultado.ToString());
         }
 
         private void localidadMasFallecidos()
@@ -77,9 +64,10 @@ namespace Parcial
             //5. Identificar el aumento de casos asintomáticos mes a mes.
 
             var resultado = (from data in listaCovid
-                         where data.ESTADO == "Desconocido"
-                         select data);
+                             where data.ESTADO == "Desconocido"
+                             select data);
             Console.WriteLine(resultado);
+            pintarGrilla(resultado);
         }
 
         private void fechaMasMuertes()
@@ -98,6 +86,7 @@ namespace Parcial
                              group data by data.LOCALIDAD_ASIS into dataLocalidad
                              select dataLocalidad);
             Console.WriteLine(resultado);
+            pintarGrilla(resultado);
         }
 
         private void fechaRecuperados()
@@ -105,9 +94,9 @@ namespace Parcial
             //10. Presentar la fecha de recuperación de los pacientes recuperados
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Recuperado"
-                             select data.FECHA_DIAGNOSTICO);
+                             select data);
             Console.WriteLine(resultado);
-        }       
+        }
 
         private void ubicacionRecuperados()
         {
@@ -131,8 +120,8 @@ namespace Parcial
 
         private void getDataFromApi()
         {
-            string url = "https://datosabiertos.bogota.gov.co/api/3/action/datastore_search?resource_id=b64ba3c4-9e41-41b8-b3fd-2da21d627558&limit=10000";
-            
+            string url = "https://datosabiertos.bogota.gov.co/api/3/action/datastore_search?resource_id=b64ba3c4-9e41-41b8-b3fd-2da21d627558&limit=500";
+
             dynamic respuesta = api.Get(url);
             foreach (var res in respuesta.result.records)
             {
@@ -151,25 +140,51 @@ namespace Parcial
                 dataCovid.FUENTE_O_TIPO_DE_CONTAGIO = res.FUENTE_O_TIPO_DE_CONTAGIO;
                 dataCovid.UBICACION = res.UBICACION;
                 dataCovid.ESTADO = res.ESTADO;
-                
+
                 listaCovid.Add(dataCovid);
 
             }
-            gridCovid.DataSource = listaCovid; 
-            gridCovid.DataBind();
-            Console.WriteLine(listaCovid);
+            
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        private void pintarGrilla(dynamic data)
         {
-            //getDataFromApi();
+            gridCovid.DataSource = data;
+            gridCovid.DataBind();
         }
+
+        private void pintarLabel(string titulo, string value)
+        {
+            labelTitulo.Text = titulo + " : ";
+            labelResultado.Text = value;
+        }
+
 
         protected void btnBorrar_Click(object sender, EventArgs e)
         {
-            gridCovid.DataSource = null;
-            gridCovid.DataBind();
+            pintarGrilla(null);
+            pintarLabel(null, null);
+        }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            edadesLeve();
+        }
+
+        protected void btnCargarDAtos(object sender, EventArgs e)
+        {
+            pintarGrilla(listaCovid);
+        }
+
+        protected void btnEdadMaxFallecido_Click(object sender, EventArgs e)
+        {
+            edadMaximaFallecido();
+        }
+
+        protected void btnAsintomaticos_Click(object sender, EventArgs e)
+        {
+            contagioXLocalidad();
         }
     }
 }
