@@ -24,6 +24,8 @@ namespace Parcial
             edadMaximaFallecido();
             localidadMasFallecidos();
             localidadMenosFallecidos();
+            contagioXLocalidad();
+            fechaMasMuertes();
             fechaRecuperados();
             ubicacionRecuperados();
             ubicacionFallecidos();
@@ -65,6 +67,24 @@ namespace Parcial
             Console.WriteLine(resultado);
         }
 
+        private void fechaMasMuertes()
+        {
+            //6. Cual son las fechas que ha presentado mayores muertes
+            var resultado = (from data in listaCovid
+                             where data.ESTADO == "Fallecido"
+                             select data.FECHA_DIAGNOSTICO).Max(dataFallecido => dataFallecido);
+            Console.WriteLine(resultado);
+        }
+
+        private void contagioXLocalidad()
+        {
+            //7. Realizar un comparativo de las localidades por tipo de contagio
+            var resultado = (from data in listaCovid
+                             group data by data.LOCALIDAD_ASIS into dataLocalidad
+                             select dataLocalidad);
+            Console.WriteLine(resultado);
+        }
+
         private void fechaRecuperados()
         {
             //10. Presentar la fecha de recuperación de los pacientes recuperados
@@ -73,6 +93,8 @@ namespace Parcial
                              select data.FECHA_DIAGNOSTICO);
             Console.WriteLine(resultado);
         }
+
+        
 
         private void ubicacionRecuperados()
         {
