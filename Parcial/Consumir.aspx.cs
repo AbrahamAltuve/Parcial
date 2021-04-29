@@ -29,6 +29,7 @@ namespace Parcial
             fechaRecuperados();
             ubicacionRecuperados();
             ubicacionFallecidos();
+            asintomaticosXMes();
         }
 
         private void edadesLeve()
@@ -67,6 +68,16 @@ namespace Parcial
             Console.WriteLine(resultado);
         }
 
+        private void asintomaticosXMes()
+        {
+            //5. Identificar el aumento de casos asintomáticos mes a mes.
+
+            var resultado = (from data in listaCovid
+                         where data.ESTADO == "Desconocido"
+                         select data);
+            Console.WriteLine(resultado);
+        }
+
         private void fechaMasMuertes()
         {
             //6. Cual son las fechas que ha presentado mayores muertes
@@ -92,9 +103,7 @@ namespace Parcial
                              where data.ESTADO == "Recuperado"
                              select data.FECHA_DIAGNOSTICO);
             Console.WriteLine(resultado);
-        }
-
-        
+        }       
 
         private void ubicacionRecuperados()
         {
@@ -126,8 +135,10 @@ namespace Parcial
                 DatosCovid dataCovid = new DatosCovid();
                 dataCovid._id = res._id;
                 dataCovid.CASO = res.CASO;
-                dataCovid.FECHA_DE_INICIO_DE_SINTOMAS = res.FECHA_DE_INICIO_DE_SINTOMAS;
-                dataCovid.FECHA_DIAGNOSTICO = res.FECHA_DIAGNOSTICO;
+                string fechaSintomas = res.FECHA_DE_INICIO_DE_SINTOMAS;
+                dataCovid.FECHA_DE_INICIO_DE_SINTOMAS = Convert.ToDateTime(fechaSintomas);
+                string fechaDiagnostico = res.FECHA_DIAGNOSTICO;
+                dataCovid.FECHA_DIAGNOSTICO = Convert.ToDateTime(fechaDiagnostico);
                 dataCovid.CIUDAD = res.CIUDAD;
                 dataCovid.LOCALIDAD_ASIS = res.LOCALIDAD_ASIS;
                 dataCovid.EDAD = res.EDAD;
@@ -136,39 +147,12 @@ namespace Parcial
                 dataCovid.FUENTE_O_TIPO_DE_CONTAGIO = res.FUENTE_O_TIPO_DE_CONTAGIO;
                 dataCovid.UBICACION = res.UBICACION;
                 dataCovid.ESTADO = res.ESTADO;
-
+                
                 listaCovid.Add(dataCovid);
-                Console.WriteLine(res.EDAD);
-
             }
             Console.WriteLine(listaCovid);
-            //dynamic ab = respuesta.result.records[0];
-            //dynamic abc = respuesta.result.records[1];
-            //dynamic abcd = respuesta.result.records[4];
-            //Console.WriteLine(ab.EDAD);
-            //Console.WriteLine(abc);
-            //Console.WriteLine(abcd);
-            //pictureBox1.ImageLocation = respuesta.data[1].avatar.ToString();
-            //txtNombreGET.Text = respuesta.data[1].first_name.ToString();
-            //txtApellidoGET.Text = respuesta.data[1].last_name.ToString();
-            //txtEmail.Text = respuesta.data[1].email.ToString();
-        }
 
-        //public class DatosCovid
-        //{
-        //    public string EDAD { get; set; }
-        //    public string FECHA_DIAGNOSTICO { get; set; }
-        //    public string CASO { get; set; }
-        //    public string FUENTE_O_TIPO_DE_CONTAGIO { get; set; }
-        //    public string SEXO { get; set; }
-        //    public string CIUDAD { get; set; }
-        //    public string FECHA_DE_INICIO_DE_SINTOMAS { get; set; }
-        //    public string UBICACION { get; set; }
-        //    public string _id { get; set; }
-        //    public string ESTADO { get; set; }
-        //    public string LOCALIDAD_ASIS { get; set; }
-        //    public string UNI_MED { get; set; }
-        //}
+        }
 
     }
 }
