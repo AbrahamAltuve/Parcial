@@ -15,12 +15,11 @@
             <br />
             <asp:Button ID="Button1" runat="server"  Text="EdadesLeve" OnClick="Button1_Click1" />
             <asp:Button ID="btnEdadMaxFallecido" runat="server"  Text="MaxEdadFallecido" OnClick="btnEdadMaxFallecido_Click" />
-            <asp:Button ID="btnAsintomaticos" runat="server"  Text="Asintomaticos" OnClick="btnAsintomaticos_Click"  />
-            <asp:Button ID="Button4" runat="server"  Text="Limpiar " />
-            <asp:Button ID="Button5" runat="server"  Text="Limpiar " />
-            <asp:Button ID="Button6" runat="server"  Text="Limpiar " />
-            <asp:Button ID="Button7" runat="server"  Text="Limpiar " />
-            <asp:Button ID="Button8" runat="server"  Text="Limpiar " />
+            <asp:Button ID="btnLocalidadMasFallecidos" runat="server"  Text="Localidad mas Fallecidos" OnClick="btnLocalidadMasFallecidos_Click"  />
+            <asp:Button ID="btnLocalidadMenosFallecidos" runat="server"  Text="Localidad menos Fallecidos" OnClick="btnLocalidadMenosFallecidos_Click" />
+            <asp:Button ID="btnFechaRecuperados" runat="server"  Text="Fecha Recuperados" OnClick="btnFechaRecuperados_Click" />
+            <asp:Button ID="btnFechaMasMuertes" runat="server"  Text="Fecha mas muertes " OnClick="btnFechaMasMuertes_Click" />
+            
 
             <br />
             <asp:Label ID="labelTitulo" runat="server"></asp:Label>

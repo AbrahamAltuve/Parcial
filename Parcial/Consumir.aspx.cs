@@ -48,6 +48,7 @@ namespace Parcial
                              where data.ESTADO == "Fallecido"
                              select data.LOCALIDAD_ASIS).Max(dataFallecido => dataFallecido);
             Console.WriteLine(resultado);
+            pintarLabel("Localidad mas fallecidos", resultado.ToString());
         }
 
         private void localidadMenosFallecidos()
@@ -57,6 +58,7 @@ namespace Parcial
                              where data.ESTADO == "Fallecido"
                              select data.LOCALIDAD_ASIS).Min(dataFallecido => dataFallecido);
             Console.WriteLine(resultado);
+            pintarLabel("Localidad menos fallecidos", resultado.ToString());
         }
 
         private void asintomaticosXMes()
@@ -77,6 +79,7 @@ namespace Parcial
                              where data.ESTADO == "Fallecido"
                              select data.FECHA_DIAGNOSTICO).Max(dataFallecido => dataFallecido);
             Console.WriteLine(resultado);
+            pintarLabel("Fecha mas muertes", resultado.ToString());
         }
 
         private void contagioXLocalidad()
@@ -96,6 +99,7 @@ namespace Parcial
                              where data.ESTADO == "Recuperado"
                              select data);
             Console.WriteLine(resultado);
+            pintarGrilla(resultado);
         }
 
         private void ubicacionRecuperados()
@@ -182,9 +186,24 @@ namespace Parcial
             edadMaximaFallecido();
         }
 
-        protected void btnAsintomaticos_Click(object sender, EventArgs e)
+        protected void btnLocalidadMasFallecidos_Click(object sender, EventArgs e)
         {
-            contagioXLocalidad();
+            localidadMasFallecidos();
+        }
+
+        protected void btnLocalidadMenosFallecidos_Click(object sender, EventArgs e)
+        {
+            localidadMenosFallecidos();
+        }
+
+        protected void btnFechaRecuperados_Click(object sender, EventArgs e)
+        {
+            fechaRecuperados();
+        }
+
+        protected void btnFechaMasMuertes_Click(object sender, EventArgs e)
+        {
+            fechaMasMuertes();
         }
     }
 }
