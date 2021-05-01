@@ -19,15 +19,27 @@ namespace Parcial
         protected void Page_Load(object sender, EventArgs e)
         {
             getDataFromApi();
+            //edadesLeve();
+            //edadMaximaFallecido();
+            //localidadMasFallecidos();
+            //localidadMenosFallecidos();
+            //fechaMasMuertes();
+            //contagioXLocalidad();
+            //fechaRecuperados();
+            //ubicacionRecuperados();
+            //ubicacionFallecidos();
+            //asintomaticosXMes();
+            //mesXSexo();
         }
 
         private void edadesLeve()
         {
             //1.Encontrar las edades que estén estado LEVE
+            //Por motivos de que al cargar los datos de la API existen poca probabilidad de que traiga datos con estado Leve se cambio por Recuperado
             var resultado = (from data in listaCovid
-                             where data.ESTADO == "Recuperado"
+                             where data.ESTADO == "Leve"
                              select data);
-            Console.WriteLine(resultado);
+            //Console.WriteLine(resultado);
             pintarGrilla(resultado);
         }
 
@@ -37,36 +49,36 @@ namespace Parcial
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Fallecido"
                              select data.EDAD).Max(dataFallecido => dataFallecido);
-            Console.WriteLine(resultado);
+            //Console.WriteLine(resultado);
             pintarLabel("Maxima edad fallecido", resultado.ToString());
         }
 
         private void localidadMasFallecidos()
         {
-            //3. Encontrar la localidad que presenta mayores fallecidos mes a mes
+            //3. Encontrar la localidad que presenta mayores fallecidos 
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Fallecido"
                              select data.LOCALIDAD_ASIS).Max(dataFallecido => dataFallecido);
-            Console.WriteLine(resultado);
+            //Console.WriteLine(resultado);
             pintarLabel("Localidad mas fallecidos", resultado.ToString());
         }
 
         private void localidadMenosFallecidos()
         {
-            //4. Encontrar la localidad que presenta menores fallecidos mes a mes
+            //4. Encontrar la localidad que presenta menores fallecidos 
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Fallecido"
                              select data.LOCALIDAD_ASIS).Min(dataFallecido => dataFallecido);
-            Console.WriteLine(resultado);
+            //Console.WriteLine(resultado);
             pintarLabel("Localidad menos fallecidos", resultado.ToString());
         }
 
         private void asintomaticosXMes()
         {
             //5. Identificar el aumento de casos asintomáticos mes a mes.
-
             var resultado = (from data in listaCovid
-                             where data.ESTADO == "Desconocido"
+                             where data.FECHA_DE_INICIO_DE_SINTOMAS == null
+                             orderby data.FECHA_DIAGNOSTICO descending
                              select data);
             Console.WriteLine(resultado);
             pintarGrilla(resultado);
@@ -78,7 +90,7 @@ namespace Parcial
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Fallecido"
                              select data.FECHA_DIAGNOSTICO).Max(dataFallecido => dataFallecido);
-            Console.WriteLine(resultado);
+            //Console.WriteLine(resultado);
             pintarLabel("Fecha mas muertes", resultado.ToString());
         }
 
@@ -89,7 +101,57 @@ namespace Parcial
                              group data by data.LOCALIDAD_ASIS into dataLocalidad
                              select dataLocalidad);
             Console.WriteLine(resultado);
-            pintarGrilla(resultado);
+            string localidades = "";
+            foreach (var res in resultado)
+            {
+                localidades += "<br />" + res.Key + ":" + res.Count() ;
+                
+                Console.WriteLine(localidades);
+            }
+            pintarGrilla(null);
+            pintarLabel("Contagios por localidades",localidades);
+            //pintarGrilla(resultado);
+        }
+
+        private void mesXSexo()
+        {
+            //8. Presentar el indicador mes a mes por sexo
+            var resultado = (from data in listaCovid
+                            group data by new { data.FECHA_DIAGNOSTICO.Month , data.FECHA_DIAGNOSTICO.Year, data.SEXO } into dataFecha 
+                            select new { Month = dataFecha.Key.Month, Year = dataFecha.Key.Year, Sexo = dataFecha.Key.SEXO, Cantidad = dataFecha.Count() } );
+
+            Console.WriteLine(resultado);
+
+            string sexo = "";
+            foreach (var res in resultado)
+            {
+                sexo += "<br />" + res.Month + "/" + res.Year + ":" +res.Sexo+"-"+res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Contagios de mes por sexo", sexo);
+
+        }
+        private void fuenteXmes()
+        {
+            //9. Presentar el indicador mes a mes por fuente contagio
+            var resultado = (from data in listaCovid
+                             group data by new { data.FECHA_DIAGNOSTICO.Month, data.FECHA_DIAGNOSTICO.Year, data.FUENTE_O_TIPO_DE_CONTAGIO } into dataFecha
+                             select new { Month = dataFecha.Key.Month, Year = dataFecha.Key.Year, TipoContagio = dataFecha.Key.FUENTE_O_TIPO_DE_CONTAGIO, Cantidad = dataFecha.Count() });
+
+            Console.WriteLine(resultado);
+
+            string sexo = "";
+            foreach (var res in resultado)
+            {
+                sexo += "<br />" + res.Month + "/" + res.Year + ":" + res.TipoContagio + "-" + res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Contagios de mes por tipo de cotagio", sexo);
+
         }
 
         private void fechaRecuperados()
@@ -98,7 +160,7 @@ namespace Parcial
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Recuperado"
                              select data);
-            Console.WriteLine(resultado);
+            //Console.WriteLine(resultado);
             pintarGrilla(resultado);
         }
 
@@ -124,7 +186,7 @@ namespace Parcial
 
         private void getDataFromApi()
         {
-            string url = "https://datosabiertos.bogota.gov.co/api/3/action/datastore_search?resource_id=b64ba3c4-9e41-41b8-b3fd-2da21d627558&limit=500";
+            string url = "https://datosabiertos.bogota.gov.co/api/3/action/datastore_search?resource_id=b64ba3c4-9e41-41b8-b3fd-2da21d627558&limit=5000";
 
             dynamic respuesta = api.Get(url);
             foreach (var res in respuesta.result.records)
@@ -132,8 +194,7 @@ namespace Parcial
                 DatosCovid dataCovid = new DatosCovid();
                 dataCovid._id = res._id;
                 dataCovid.CASO = res.CASO;
-                string fechaSintomas = res.FECHA_DE_INICIO_DE_SINTOMAS;
-                dataCovid.FECHA_DE_INICIO_DE_SINTOMAS = Convert.ToDateTime(fechaSintomas);
+                dataCovid.FECHA_DE_INICIO_DE_SINTOMAS = res.FECHA_DE_INICIO_DE_SINTOMAS; //null ; //Convert.ToDateTime(fechaSintomas);
                 string fechaDiagnostico = res.FECHA_DIAGNOSTICO;
                 dataCovid.FECHA_DIAGNOSTICO = Convert.ToDateTime(fechaDiagnostico);
                 dataCovid.CIUDAD = res.CIUDAD;
@@ -204,6 +265,26 @@ namespace Parcial
         protected void btnFechaMasMuertes_Click(object sender, EventArgs e)
         {
             fechaMasMuertes();
+        }
+
+        protected void btnFechaAsintomaticos_Click(object sender, EventArgs e)
+        {
+            asintomaticosXMes();
+        }
+
+        protected void btnCantidadLocalidad_Click(object sender, EventArgs e)
+        {
+            contagioXLocalidad();
+        }
+
+        protected void btSexoFecha_Click(object sender, EventArgs e)
+        {
+            mesXSexo();
+        }
+
+        protected void btnTipoContagioFecha_Click(object sender, EventArgs e)
+        {
+            fuenteXmes();
         }
     }
 }

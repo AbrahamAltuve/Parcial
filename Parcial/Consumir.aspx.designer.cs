@@ -78,6 +78,15 @@ namespace Parcial
         protected global::System.Web.UI.WebControls.Button btnLocalidadMenosFallecidos;
 
         /// <summary>
+        /// Control btnFechaMasMuertes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFechaMasMuertes;
+
+        /// <summary>
         /// Control btnFechaRecuperados.
         /// </summary>
         /// <remarks>
@@ -87,13 +96,40 @@ namespace Parcial
         protected global::System.Web.UI.WebControls.Button btnFechaRecuperados;
 
         /// <summary>
-        /// Control btnFechaMasMuertes.
+        /// Control btnFechaAsintomaticos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFechaMasMuertes;
+        protected global::System.Web.UI.WebControls.Button btnFechaAsintomaticos;
+
+        /// <summary>
+        /// Control btnCantidadLocalidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCantidadLocalidad;
+
+        /// <summary>
+        /// Control btSexoFecha.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btSexoFecha;
+
+        /// <summary>
+        /// Control btnTipoContagioFecha.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTipoContagioFecha;
 
         /// <summary>
         /// Control labelTitulo.

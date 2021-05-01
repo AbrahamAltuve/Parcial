@@ -17,9 +17,14 @@
             <asp:Button ID="btnEdadMaxFallecido" runat="server"  Text="MaxEdadFallecido" OnClick="btnEdadMaxFallecido_Click" />
             <asp:Button ID="btnLocalidadMasFallecidos" runat="server"  Text="Localidad mas Fallecidos" OnClick="btnLocalidadMasFallecidos_Click"  />
             <asp:Button ID="btnLocalidadMenosFallecidos" runat="server"  Text="Localidad menos Fallecidos" OnClick="btnLocalidadMenosFallecidos_Click" />
+            <asp:Button ID="btnFechaMasMuertes" runat="server"  Text="Fecha mas muertes" OnClick="btnFechaMasMuertes_Click" />
             <asp:Button ID="btnFechaRecuperados" runat="server"  Text="Fecha Recuperados" OnClick="btnFechaRecuperados_Click" />
-            <asp:Button ID="btnFechaMasMuertes" runat="server"  Text="Fecha mas muertes " OnClick="btnFechaMasMuertes_Click" />
-            
+            <asp:Button ID="btnFechaAsintomaticos" runat="server"  Text="Asintomaticos" OnClick="btnFechaAsintomaticos_Click"/>
+            <asp:Button ID="btnCantidadLocalidad" runat="server"  Text="Contagios por localidad" OnClick="btnCantidadLocalidad_Click"/>
+            <asp:Button ID="btSexoFecha" runat="server"  Text="Contagios de sexo por mes" OnClick="btSexoFecha_Click"/>
+            <asp:Button ID="btnTipoContagioFecha" runat="server"  Text="Contagios por tipo por mes" OnClick="btnTipoContagioFecha_Click"/>
+
+
 
             <br />
             <asp:Label ID="labelTitulo" runat="server"></asp:Label>
