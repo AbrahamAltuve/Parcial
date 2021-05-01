@@ -132,6 +132,24 @@ namespace Parcial
         protected global::System.Web.UI.WebControls.Button btnTipoContagioFecha;
 
         /// <summary>
+        /// Control btnRecuperadosUbicacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRecuperadosUbicacion;
+
+        /// <summary>
+        /// Control btnFallecidosUbicacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFallecidosUbicacion;
+
+        /// <summary>
         /// Control labelTitulo.
         /// </summary>
         /// <remarks>

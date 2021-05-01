@@ -170,8 +170,18 @@ namespace Parcial
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Recuperado"
                              group data by data.LOCALIDAD_ASIS into dataUbicacion
-                             select dataUbicacion);
+                             select new { Localidad = dataUbicacion.Key, Cantidad = dataUbicacion.Count() } );
+
             Console.WriteLine(resultado);
+            string localidad = "";
+            foreach (var res in resultado)
+            {
+                localidad += "<br />" + res.Localidad + ":" + res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Recuperados por ubicacion", localidad);
         }
 
         private void ubicacionFallecidos()
@@ -180,8 +190,17 @@ namespace Parcial
             var resultado = (from data in listaCovid
                              where data.ESTADO == "Fallecido"
                              group data by data.LOCALIDAD_ASIS into dataUbicacion
-                             select dataUbicacion);
+                             select new { Localidad = dataUbicacion.Key, Cantidad = dataUbicacion.Count() });
             Console.WriteLine(resultado);
+            string localidad = "";
+            foreach (var res in resultado)
+            {
+                localidad += "<br />" + res.Localidad + ":" + res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Fallecidos por ubicacion", localidad);
         }
 
         private void getDataFromApi()
@@ -285,6 +304,16 @@ namespace Parcial
         protected void btnTipoContagioFecha_Click(object sender, EventArgs e)
         {
             fuenteXmes();
+        }
+
+        protected void btnRecuperadosUbicacion_Click(object sender, EventArgs e)
+        {
+            ubicacionRecuperados();
+        }
+
+        protected void btnFallecidosUbicacion_Click(object sender, EventArgs e)
+        {
+            ubicacionFallecidos();
         }
     }
 }

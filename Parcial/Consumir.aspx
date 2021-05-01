@@ -23,6 +23,8 @@
             <asp:Button ID="btnCantidadLocalidad" runat="server"  Text="Contagios por localidad" OnClick="btnCantidadLocalidad_Click"/>
             <asp:Button ID="btSexoFecha" runat="server"  Text="Contagios de sexo por mes" OnClick="btSexoFecha_Click"/>
             <asp:Button ID="btnTipoContagioFecha" runat="server"  Text="Contagios por tipo por mes" OnClick="btnTipoContagioFecha_Click"/>
+            <asp:Button ID="btnRecuperadosUbicacion" runat="server"  Text="Recuperados por ubicacion" OnClick="btnRecuperadosUbicacion_Click"/>
+            <asp:Button ID="btnFallecidosUbicacion" runat="server"  Text="Fallecidos por ubicacion" OnClick="btnFallecidosUbicacion_Click"/>
 
 
 
