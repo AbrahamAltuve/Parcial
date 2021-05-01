@@ -25,7 +25,10 @@
             <asp:Button ID="btnTipoContagioFecha" runat="server"  Text="Contagios por tipo por mes" OnClick="btnTipoContagioFecha_Click"/>
             <asp:Button ID="btnRecuperadosUbicacion" runat="server"  Text="Recuperados por ubicacion" OnClick="btnRecuperadosUbicacion_Click"/>
             <asp:Button ID="btnFallecidosUbicacion" runat="server"  Text="Fallecidos por ubicacion" OnClick="btnFallecidosUbicacion_Click"/>
-
+            <asp:Button ID="btnLeveXMes" runat="server"  Text="Tencencia Leve" OnClick="btnLeveXMes_Click"/>
+            <asp:Button ID="btnFallecidoXMes" runat="server"  Text="Tencencia Fallecido" OnClick="btnFallecidoXMes_Click"/>
+            <asp:Button ID="btnRecuperadoXMes" runat="server"  Text="Tencencia Recuerado" OnClick="btnRecuperadoXMes_Click"/>
+            <asp:Button ID="btnDiferenciasCasos" runat="server"  Text="Diferencias Casos Febreros y Marzo" OnClick="btnDiferenciasCasos_Click"/>
 
 
             <br />

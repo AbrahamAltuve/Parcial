@@ -133,6 +133,7 @@ namespace Parcial
             pintarLabel("Contagios de mes por sexo", sexo);
 
         }
+
         private void fuenteXmes()
         {
             //9. Presentar el indicador mes a mes por fuente contagio
@@ -162,6 +163,72 @@ namespace Parcial
                              select data);
             //Console.WriteLine(resultado);
             pintarGrilla(resultado);
+        }
+
+        private void tendenciaLeve()
+        {
+            //11. Realizar la tendencia lineal mes de numero de casos leve
+            var resultado = (from data in listaCovid
+                             where data.ESTADO == "Leve"
+                             group data by new { data.FECHA_DIAGNOSTICO.Month, data.FECHA_DIAGNOSTICO.Year } into dataFecha
+                             select new { Month = dataFecha.Key.Month, Year = dataFecha.Key.Year, Cantidad = dataFecha.Count() });
+
+            Console.WriteLine(resultado);
+
+            string tendencia = "";
+            foreach (var res in resultado)
+            {
+                tendencia += "<br />" + res.Month + "/" + res.Year + ":" + res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Tendencia de casos Leve por mes", tendencia);
+
+        }
+
+        private void tendenciaFallecido()
+        {
+            //12. Realizar la tendencia lineal mes de número de casos fallecidos
+            var resultado = (from data in listaCovid
+                             where data.ESTADO == "Fallecido"
+                             group data by new { data.FECHA_DIAGNOSTICO.Month, data.FECHA_DIAGNOSTICO.Year } into dataFecha
+                             select new { Month = dataFecha.Key.Month, Year = dataFecha.Key.Year, Cantidad = dataFecha.Count() });
+
+            Console.WriteLine(resultado);
+
+            string tendencia = "";
+            foreach (var res in resultado)
+            {
+                tendencia += "<br />" + res.Month + "/" + res.Year + ":" + res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Tendencia de casos Fallecido por mes", tendencia);
+
+        }
+
+        private void tendenciaRecuperado()
+        {
+            //11. Realizar la tendencia lineal mes de numero de casos leve
+            var resultado = (from data in listaCovid
+                             where data.ESTADO == "Recuperado"
+                             group data by new { data.FECHA_DIAGNOSTICO.Month, data.FECHA_DIAGNOSTICO.Year } into dataFecha
+                             select new { Month = dataFecha.Key.Month, Year = dataFecha.Key.Year, Cantidad = dataFecha.Count() });
+
+            Console.WriteLine(resultado);
+
+            string tendencia = "";
+            foreach (var res in resultado)
+            {
+                tendencia += "<br />" + res.Month + "/" + res.Year + ":" + res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Tendencia de casos Recuperado por mes", tendencia);
+
         }
 
         private void ubicacionRecuperados()
@@ -203,6 +270,30 @@ namespace Parcial
             pintarLabel("Fallecidos por ubicacion", localidad);
         }
 
+        private void diferenciasCasos()
+        {
+            //16. Cual es la diferencia de casos fallecidos y recuperados de febrero y marzo del 2020 frente al 2021.
+            var resultado = (from data in listaCovid
+                             where (data.ESTADO == "Recuperado" || data.ESTADO == "Fallecido")
+                             && (data.FECHA_DIAGNOSTICO.Month == 2 || data.FECHA_DIAGNOSTICO.Month == 3)
+                             //select data);
+                             group data by new { data.FECHA_DIAGNOSTICO.Month, data.FECHA_DIAGNOSTICO.Year } into dataFecha
+                             select new { Month = dataFecha.Key.Month, Year = dataFecha.Key.Year, Cantidad = dataFecha.Count() });
+
+            string tendencia = "";
+            foreach (var res in resultado)
+            {
+                tendencia += "<br />" + res.Month + "/" + res.Year + ":" + res.Cantidad;
+
+                Console.WriteLine(res);
+            }
+            pintarGrilla(null);
+            pintarLabel("Diferencia casos febrero y marzo", tendencia);
+            Console.WriteLine(resultado);
+            //pintarGrilla(resultado);
+
+        }
+
         private void getDataFromApi()
         {
             string url = "https://datosabiertos.bogota.gov.co/api/3/action/datastore_search?resource_id=b64ba3c4-9e41-41b8-b3fd-2da21d627558&limit=5000";
@@ -228,7 +319,6 @@ namespace Parcial
                 listaCovid.Add(dataCovid);
 
             }
-            
 
         }
 
@@ -314,6 +404,26 @@ namespace Parcial
         protected void btnFallecidosUbicacion_Click(object sender, EventArgs e)
         {
             ubicacionFallecidos();
+        }
+
+        protected void btnLeveXMes_Click(object sender, EventArgs e)
+        {
+            tendenciaLeve();
+        }
+
+        protected void btnFallecidoXMes_Click(object sender, EventArgs e)
+        {
+            tendenciaFallecido();
+        }
+
+        protected void btnRecuperadoXMes_Click(object sender, EventArgs e)
+        {
+            tendenciaRecuperado();
+        }
+
+        protected void btnDiferenciasCasos_Click(object sender, EventArgs e)
+        {
+            diferenciasCasos();
         }
     }
 }

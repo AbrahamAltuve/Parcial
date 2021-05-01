@@ -150,6 +150,42 @@ namespace Parcial
         protected global::System.Web.UI.WebControls.Button btnFallecidosUbicacion;
 
         /// <summary>
+        /// Control btnLeveXMes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLeveXMes;
+
+        /// <summary>
+        /// Control btnFallecidoXMes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFallecidoXMes;
+
+        /// <summary>
+        /// Control btnRecuperadoXMes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRecuperadoXMes;
+
+        /// <summary>
+        /// Control btnDiferenciasCasos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDiferenciasCasos;
+
+        /// <summary>
         /// Control labelTitulo.
         /// </summary>
         /// <remarks>
